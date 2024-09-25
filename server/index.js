@@ -1,25 +1,34 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken'); for later
+const userController = require('../server/controllers/userController');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-//connect
 const db = new sqlite3.Database('users.db', (err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log('might have done it.');
+  console.log('Connected to db.');
 });
 
-// middleware
+const secret = require('crypto').randomBytes(64).toString('hex');
+
+
+app.use(cors()); 
 app.use(express.json());
 
-// route(s)
-app.use('/api/users');
+const userRoutes = require('../server/routes/users'); 
+
+app.use('/api/users', userController); 
+
+userService.createTable();
+
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+

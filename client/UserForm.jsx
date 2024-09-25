@@ -5,27 +5,69 @@ const UserForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [errorMessage, setErrorMessage] = useState('');
+  
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      const response = await axios.post('http://localhost:3000/api/users/register', {
+      
+      const userData = {
         name,
         email,
-        password
-      });
-
-   
+        password: await hashPassword(password, 32) 
+      };
+  
+      // POST 
+      const response = await axios.post('http://localhost:3000/api/users/register', userData);
+      
+      setName('');
+      setEmail('');
+      setPassword('');
+    
+      console.log('Registration successful!', response.data);
+    
     } catch (error) {
     
+      console.error('Registration failed:', error.response.data);
+  
     }
   };
-
+};
+{
   return (
     <form onSubmit={handleSubmit}>
-      {}
-      <button type="submit">Submit</button>
+      <label htmlFor="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)} 
+        required
+      />
+
+      <label htmlFor="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+
+      <label htmlFor="password">Password:</label> 
+      <input
+        type="password"
+        id="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        minLength={8}
+/>
+      <button type="submit">Register</button>
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </form>
   );
 };
