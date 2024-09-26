@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const UserForm = () => {
+export function UserForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,11 +12,15 @@ const UserForm = () => {
     event.preventDefault();
   
     try {
-      
+      if (!name || !email || password.length < 8) {
+        setErrorMessage('bruh');
+        return;
+      }
+
       const userData = {
         name,
         email,
-        password: await hashPassword(password, 32) 
+        // password: await hashPw(password, 32) 
       };
   
       // POST 
@@ -34,8 +38,7 @@ const UserForm = () => {
   
     }
   };
-};
-{
+
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">Name:</label>
@@ -72,4 +75,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+// export default UserForm;

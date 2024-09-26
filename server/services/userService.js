@@ -1,4 +1,15 @@
-const db = require('../db/users.db'); 
+const sqlite3 = require('sqlite3').verbose();
+// const db = require('../db/users.db'); 
+
+let db; 
+
+try {
+  db = new sqlite3.Database('users.db'); 
+} catch (err) {
+  console.error(err.message);
+} finally {
+   db.close()
+}
 
 
 const userService = {
@@ -15,7 +26,7 @@ const userService = {
  }
     const hashedPw = await bcrypt.has(password, 32);
     // assess
-    await db.run('INSER INTO users (name, email, password) VALUES (?,?,?', [name, email, hashedPw]);
+    await db.run('INSERT INTO users (name, email, password) VALUES (?,?,?', [name, email, hashedPw]);
     
     return res.json({message: 'Welcome'});
   },
@@ -46,16 +57,9 @@ error: ' something doesnt look right'});
   }, catch (error) {
     console.error(error); 
     return res.json ({error: 'server err'});
-  }
-};
-//   getUserProfile: async (req, res) => {
-// thoughts for another time
-//   }
-// };
+  }, 
 
-// plan to add password reset, user profile management, etc
-
-createTable: () => {
+  createTable: () => {
     db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT UNIQUE, password TEXT)', (err) => {
       if (err) {
         console.error(err.message);
@@ -63,7 +67,13 @@ createTable: () => {
         console.log('Users table created successfully.');
       }
     });
-  }
+  },
+};
+//   getUserProfile: async (req, res) => {
+// thoughts for another time
+//   }
+// };
 
+// plan to add password reset, user profile management, etc
 
 module.exports = userService;

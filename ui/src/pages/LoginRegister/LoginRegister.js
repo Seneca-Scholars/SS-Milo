@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import UserForm from './UserForm';
+import { UserForm } from '../UserForm/UserForm'; 
 
-const LoginRegister = () => {
+export function LoginRegister() {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
@@ -17,4 +17,4 @@ const LoginRegister = () => {
   );
 };
 
-export default LoginRegister;
+// export default LoginRegister;
