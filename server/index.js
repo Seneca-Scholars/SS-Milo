@@ -17,4 +17,17 @@ name TEXT) `, (err) => {
   }
 });
 
+app.get('/search', (req, res) => {
+  const query = req.query.q;
 
+db.all('SELECT * FROM users WHERE name LIKE ?', `%${query}%`, (err, rows) => {
+  if (err) {
+  console.log(err);
+res.status(500).json({ error: 'internal error' });
+  } else { 
+     res.json(rows)
+    }
+  });
+
+  res.json({ message: 'search logic to be added' }); 
+});
