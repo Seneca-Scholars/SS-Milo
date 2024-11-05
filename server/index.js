@@ -13,3 +13,10 @@ name TEXT) `, console.log('table was created.')
 
 );
 
+
+app.get('/search', (req, res) => {
+  const query = req.query.q
+
+
+  res.json({ message: 'logic not implemented just yet' }); 
+});
