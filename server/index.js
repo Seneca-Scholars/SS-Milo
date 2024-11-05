@@ -9,14 +9,12 @@ const db = new sqlite3.Database('./mydb.db',
 db.run(`
  CREATE TABLE IF NOT EXISTS users (
  id INTEGER PRIMARY KEY AUTOINCREMENT,
-name TEXT) `, console.log('table was created.')
-
-);
-
-
-app.get('/search', (req, res) => {
-  const query = req.query.q
-
-
-  res.json({ message: 'logic not implemented just yet' }); 
+name TEXT) `, (err) => {
+  if (err) {
+    console.error('table couldnt be created:', err.message);
+  } else {
+    console.log('table was created.');
+  }
 });
+
+
