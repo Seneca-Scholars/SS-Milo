@@ -1,11 +1,20 @@
+import React , { useState } from 'react';
 import "./searchResult.css";
 export const SearchResult = ({ result, gifUrl }) => {
+  const [showGif, setShowGif] = useState(false);
+
+  const handleClick = () => {
+    setShowGif(!showGif);
+  };
+
     return (
-      <div  className="search-result" onClick={() =>{ alert(`${result}! has been selected `);
-        const gifImage = document.getElementById('gif');
-        gifImage.style.display = 'block'; //didnt work, might scrape this idea 
-     }}>
+      <div  className="search-result" onClick={handleClick}>
         {result}
+        <div className='gif-container'>
+        {/* {showGif && ( */}
+         <img src="/adorableness.jpeg" alt='hi'/>
+      {/* )} */}
+      </div>
       </div>
     );
   };

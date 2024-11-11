@@ -6,7 +6,7 @@ export const SearchBar = ({ setResults }) => {
     const [input, setInput] = useState("");
 
     const fetchData = (value) => {
-        fetch("http://localhost:3000/search")
+        fetch('http://localhost:3000/search?q')
          .then((response) => response.json())
        .then((json) => {
         const results = json.filter((user) => {
@@ -27,6 +27,7 @@ export const SearchBar = ({ setResults }) => {
   };
 
   return (
+    <div className="search-bar-container">
     <div className="input-wrapper">
       <FaSearch id="search-icon" />
       <input
@@ -35,5 +36,8 @@ export const SearchBar = ({ setResults }) => {
         onChange={(e) => handleChange(e.target.value)}
       />
     </div>
+    </div>
   );
 };
+
+export default SearchBar;
