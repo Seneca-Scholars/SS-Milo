@@ -1,4 +1,4 @@
-import "../components/searchResultList.css";
+import "./searchResultList.css";
 
 import { SearchResult } from "./SearchResult";
 
