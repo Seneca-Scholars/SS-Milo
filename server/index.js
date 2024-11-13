@@ -13,9 +13,8 @@ app.get('/search', async (req, res) => {
     const results = await searchUser(query);
     res.json(results);
   } catch (err) {
-    console.error('Error fetching users:', err);
-    res.status(500).json({ message: 'Error fetching users' });
-  }
+    console.error('err fetching users:', err);
+    }
 });
 
 app.listen(3000, () => console.log('Listening on 3000'));
