@@ -1,14 +1,29 @@
 import React, { useState } from "react"
 
-const addUserForm = ({ onSubmit }) => {
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
+const AddUserForm = ({ onSubmit }) => {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit({ firstName,lastName}); //paases data to the submit func
-    };
-
+    try {
+        const response = await fetch ('http://localhost:3000/add-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ firstName, lastName}),
+        });
+        if (response.ok) {
+            console.log('ok');
+            onSubmit();
+        } else {
+            console.error('err adding user:', await response.text());
+        }
+    }catch (error) {
+        console.error('err adding user:', error);
+    }
+};
 
 return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +42,7 @@ return (
 
         <button type="submit"> add user</button>
         </form>
-        
+       
 );
 };
-export default addUserForm;
+export default AddUserForm;

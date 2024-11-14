@@ -1,30 +1,36 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import AddUserForm from "./addUserForm";
 import "./searchBar.css";
 
 export const SearchBar = ({ setResults }) => {
     const [input, setInput] = useState("");
+    const [isAddUserFormOpen, setIsAddUserFormOpen] = useState(false);
 
-    const fetchData = (value) => {
-        fetch('http://localhost:3000/search?q')
-         .then((response) => response.json())
-       .then((json) => {
-        const results = json.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value)
-          );
-        });
-        setResults(results);
-      });
-  };
+    const fetchData =  async (value) => {
+      const response = await fetch('http://localhost:3000/search?q')
+      const json = await response.json();
+      const results = json.filter((user)  => 
+        user && 
+        (user.firstName?.toLowerCase().includes(value.toLowerCase()) || 
+         user.lastName?.toLowerCase().includes(value.toLowerCase()))
+      );
+      setResults(results);
+    };
+           
 
   const handleChange = (value) => {
     setInput(value);
     fetchData(value);
   };
+
+  const handleOpenAddUserForm = () => {
+    setIsAddUserFormOpen(true);
+  };
+
+  const handleCloseAddUserForm = () => {
+    setIsAddUserFormOpen(false);
+  }
 
   return (
     <div className="search-bar-container">
@@ -35,6 +41,13 @@ export const SearchBar = ({ setResults }) => {
         value={input}
         onChange={(e) => handleChange(e.target.value)}
       />
+      <button onClick={handleOpenAddUserForm}
+      className="add-user-link">
+      add user.
+      </button>
+    {isAddUserFormOpen && (
+     <AddUserForm onSubmit = {handleCloseAddUserForm} />
+    )}
     </div>
     </div>
   );
