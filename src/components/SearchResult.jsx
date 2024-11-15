@@ -5,7 +5,6 @@ export const SearchResult = ({ result, gifUrl }) => {
   const [showGif, setShowGif] = useState(false);
 
   const handleClick = async () => {
-    // Start loading
     setShowGif(true);
     await wait(5000) // put aysnc opp here
     setShowGif(false)

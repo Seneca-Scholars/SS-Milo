@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import "./addUserForm.css"
 
 const AddUserForm = ({ onSubmit }) => {
     const [firstName, setFirstName] = useState("");
@@ -40,7 +41,7 @@ return (
         onChange={(e) => setLastName(e.target.value)}
         />
 
-        <button type="submit"> add user</button>
+        <button type="submit" > add user</button>
         </form>
        
 );
