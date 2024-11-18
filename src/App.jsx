@@ -1,11 +1,11 @@
 import React,{ useState } from 'react'
 import './App.css'
 import { SearchBar } from "./components/SearchBar";
-import { SearchResultsList } from "./components/SearchResultList";
+import { SearchResultsList } from "./components/SearchResultList.jsx";
 
 function App() {
   const [results, setResults] = useState([]);
-
+  console.log("fart", results)
   return (
    <div className="App">
     <header>
@@ -13,8 +13,7 @@ function App() {
     </header>
    <div className="search-bar-container">
     <SearchBar setResults={setResults}/>
-    {results && results.length > 0 && 
-      <SearchResultsList results={results} />}
+    <SearchResultsList results={results} />
     </div>
     </div>
   );
