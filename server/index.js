@@ -21,7 +21,12 @@ app.use(express.json());
 
     try {
       const results = await searchUser(query);
-      res.json(results);
+      
+      if (results) {
+        res.json(results);
+      } else {
+        res.json({ message: "no users found"}); 
+      }
       console.log(results)
     } catch (err) {
       console.error("err fetching users:", err);

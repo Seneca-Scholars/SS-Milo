@@ -5,7 +5,7 @@ import { SearchResultsList } from "./components/SearchResultList.jsx";
 
 function App() {
   const [results, setResults] = useState([]);
-  console.log("fart", results)
+  console.log("playdo", results)
   return (
    <div className="App">
     <header>

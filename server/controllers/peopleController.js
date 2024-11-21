@@ -11,6 +11,10 @@ export const searchUser = async (query) => {
             }
           });
                });
+
+               if (rows.length === 0) {
+                return null;
+               }
     return rows;
             } catch (err) {
                 console.error('err fetching users:', err);
