@@ -38,7 +38,7 @@ app.use(express.json());
     console.log("add user req received:", req.body);
   
     try {
-      const userId = await addUser.create(firstName, lastName); // Use await for Promise-based approach
+      const userId = await addUser.create(firstName, lastName);
       res.status(201).send({ id: userId, firstName, lastName });
     } catch (err) {
       console.error("err in user.create", err);
