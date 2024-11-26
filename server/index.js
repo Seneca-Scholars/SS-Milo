@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { searchUser } from "./controllers/peopleController.js";
+import { updateUser } from "./controllers/updateController.js";
 import { addUser } from "./controllers/addUserController.js";
 import { initializeDatabase, insertDummyData } from "./controllers/dbController.js";
 
@@ -50,7 +51,22 @@ app.use(express.json());
   });
 
 
+  app.put("/users/:id", async (req, res) => {
+    const userId = req.params.id;
+    const updatedData = req.body;
+    try {
+        const updatedUser = await updateUser(userId, updatedData); 
 
+        if (updatedUser) {
+            res.json(updatedUser);
+        } else {
+          console.log('user not updated', err );
+        }
+    } catch (error) {
+        console.error("err updating user:", error);
+        res.status(500).json({ message: "failed to update user" });
+    }
+});
 
 
 

@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
 import "./searchResultList.css";
-import ResultItem from './ResultItem'
-
+import ResultItem from "./ResultItem";
 
 export const SearchResultsList = ({ results }) => {
-  console.log("brah", results)
+  console.log("brah", results);
+
+  
   return (
-<div className="results-list">
+    <div className="results-list">
       {results.length > 0 ? (
         results.map((result) => (
           <ResultItem key={result.id} result={result} />
