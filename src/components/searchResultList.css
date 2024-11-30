@@ -1,6 +1,6 @@
 .results-list { 
     width: 100%;
-    background-color: #FF4564 ;
+    background-color: orchid ;
     display: flex;
     flex-direction: column;
     border-radius: 10px;

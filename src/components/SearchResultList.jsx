@@ -1,13 +1,22 @@
-import "../components/searchResultList.css";
-
-import { SearchResult } from "./SearchResult";
+import React from "react";
+import "./searchResultList.css";
+import ResultItem from "./ResultItem";
 
 export const SearchResultsList = ({ results }) => {
+  console.log("brah", results);
+
+  
   return (
     <div className="results-list">
-      {results.map((result, id) => {
-        return <SearchResult result={result.name} key={id} />;
-      })}
+      {results.length > 0 ? (
+        results.map((result) => (
+          <ResultItem key={result.id} result={result} />
+        ))
+      ) : (
+        <p>No results found.</p>
+      )}
     </div>
   );
 };
+
+export default SearchResultsList;
