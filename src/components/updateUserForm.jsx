@@ -4,11 +4,16 @@ const UpdateUserForm = ({ user, onSubmit }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
     console.log("deez nuts")
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting update with data:", firstName, lastName);
+
 
     try {
-      const response = await fetch(`api/users/${user.id}`, {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

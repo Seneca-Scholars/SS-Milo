@@ -54,6 +54,8 @@ app.use(express.json());
   app.put("/users/:id", async (req, res) => {
     const userId = req.params.id;
     const updatedData = req.body;
+    console.log("Received PUT request with userId:", userId, "and updatedData:", updatedData);
+
     try {
         const updatedUser = await updateUser(userId, updatedData); 
 

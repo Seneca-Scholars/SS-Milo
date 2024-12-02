@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./searchResult.css";
 const wait = async (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -6,13 +7,12 @@ const wait = async (ms) => {
 
 export const SearchResult = ({ result, gifUrl, onSelectUser }) => {
   const [showGif, setShowGif] = useState(false);
-  const [updateUser, setUpdateUser] = useState(false)
   console.log("recieved result:", result);
   
   const handleClick = async () => {
     setShowGif(true);
   
-    console.log(updateUser)
+    
     try {
       await wait(5000);
     } catch (error) {
@@ -20,12 +20,16 @@ export const SearchResult = ({ result, gifUrl, onSelectUser }) => {
     } finally {
       setShowGif(false);
     }
-    onSelectUser(result);
+
+    if (onSelectUser) {
+      onSelectUser(result);
+    }
   };
 
+
   return (
-    <a className="search-result" onClick={handleClick} href="/bruh">
-      {result.firstName} {result.lastName}
+    <a className="search-result" onClick={handleClick}>
+      {result.firstName} {result.lastName} 
       <div className={`gif-container ${showGif ? "show" : ""}`}>
         {showGif && <img src="/loadin.gif" alt="loaddd" />}
       </div>
