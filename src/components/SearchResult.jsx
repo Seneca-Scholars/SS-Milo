@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import "./searchResult.css";
 const wait = async (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));

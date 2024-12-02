@@ -73,7 +73,7 @@ export const SearchBar = () => {
         )}
      
       <div>
-      </div>
+      </div> 
         <button onClick={handleOpenAddUserForm} className="add-user-button">
           add user.
         </button>
