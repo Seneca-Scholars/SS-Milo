@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import AddUserForm from "./addUserForm";
 import UpdateUserForm from "./updateUserForm";
+import { SearchResultsList } from "../components/SearchResultList";
+// import { useNavigate } from 'react-router-dom';
 import "./searchBar.css";
 
-
-export const SearchBar = ({ setResults }) => {
+export const SearchBar = () => {
   const [input, setInput] = useState("");
   const [isAddUserFormOpen, setIsAddUserFormOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [results, setResults] = useState([]);
+  // const navigate = useNavigate();
 
   const fetchData = async (value) => {
     try {
@@ -44,10 +47,12 @@ export const SearchBar = ({ setResults }) => {
     setIsAddUserFormOpen(false);
   };
 
-  const onSelectUser = (user) => {
+  const handleSelectUser = (user) => {
     setSelectedUser(user);
-    
+    // navigate(`/users/${user.id}`);
   };
+    
+  
 
   return (
     <div className="search-bar-container">
@@ -58,13 +63,23 @@ export const SearchBar = ({ setResults }) => {
           value={input}
           onChange={(e) => handleChange(e.target.value)}
         />
-<div>
+      </div>
+  
+      <div className="search-results">
+        {results.length > 0 ? (
+          <SearchResultsList results={results} onSelectUser={handleSelectUser} />
+        ) : (
+          <p>ni search results found.</p>
+        )}
+     
+      <div>
+      </div>
         <button onClick={handleOpenAddUserForm} className="add-user-button">
           add user.
         </button>
-<br/>
+        <br />
         {isAddUserFormOpen && <AddUserForm onSubmit={handleCloseAddUserForm} />}
-        
+  
         {selectedUser && (
           <button className="update-user-button" onClick={() => setSelectedUser(null)}>
             update User
@@ -72,11 +87,11 @@ export const SearchBar = ({ setResults }) => {
         )}
         {selectedUser && (
           <UpdateUserForm user={selectedUser} onSubmit={() => setSelectedUser(null)} />
-        )} 
+        )}
       </div>
-    </div>
     </div>
   );
 };
+
 
 export default SearchBar;
