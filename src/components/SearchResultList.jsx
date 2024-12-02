@@ -4,7 +4,7 @@ import { SearchResult } from "./SearchResult";
 
 
 
-export const SearchResultsList = ({ results, onSelectUser }) => {
+export const SearchResultsList = ({ results, onSelectUser, onDeleteUser }) => {
   console.log("brah", results);
 
   
@@ -15,7 +15,9 @@ export const SearchResultsList = ({ results, onSelectUser }) => {
         <ul>
           {results.map((result) => (
             <li key={result.id}>
-              <SearchResult key={result.id} result={result} onSelectUser={onSelectUser} />
+              <SearchResult key={result.id} result={result} onSelectUser={onSelectUser}
+               />
+             <button onClick={() => onDeleteUser(result.id)}>Delete</button>
             </li>
           ))}
         </ul>
