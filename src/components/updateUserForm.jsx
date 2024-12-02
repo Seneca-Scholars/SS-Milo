@@ -3,17 +3,14 @@ import React, { useState } from 'react';
 const UpdateUserForm = ({ user, onSubmit }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-    console.log("deez nuts")
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting update with data:", firstName, lastName);
+    console.log("update with data:", firstName, lastName);
 
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+      const response = await fetch(`http://localhost:3000/user/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -24,10 +21,10 @@ const UpdateUserForm = ({ user, onSubmit }) => {
       if (response.ok) {
         onSubmit(); //notify parent component
       } else {
-        console.error('err updating user:', await response.text());
+        console.error('err bruh2 updating user:', await response.text());
       }
     } catch (error) {
-      console.error('err updating user:', error);
+      console.error('err fart updating user:', error);
     }
   };
 
