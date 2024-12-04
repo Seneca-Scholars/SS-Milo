@@ -3,6 +3,8 @@ import { FaSearch } from "react-icons/fa";
 import AddUserForm from "./addUserForm";
 import UpdateUserForm from "./updateUserForm";
 import DeleteUserForm from "./deleteUserForm";
+import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
 import { SearchResultsList } from "../components/SearchResultList";
 // import { useNavigate } from 'react-router-dom';
 import "./searchBar.css";
@@ -12,6 +14,9 @@ export const SearchBar = () => {
   const [isAddUserFormOpen, setIsAddUserFormOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [results, setResults] = useState([]);
+  const [isLoginFormOpen, setIsLoginFormOpen] = useState(false);
+  const [isRegisterFormOpen, setIsRegisterFormOpen] = useState(false);
+
   // const navigate = useNavigate();
 
   const fetchData = async (value) => {
@@ -56,7 +61,20 @@ export const SearchBar = () => {
     console.log(`deleting user with id: ${userId}`);
   };
   
-    
+  const handleOpenLoginForm = () => {
+    setIsLoginFormOpen(true);
+  };
+
+  const handleCloseLoginForm = () => {
+    setIsLoginFormOpen(false);
+  };
+  const handleOpenRegisterForm = () => {
+    setIsRegisterFormOpen(true);
+  };
+
+  const handleCloseRegisterForm = () => {
+    setIsRegisterFormOpen(false);
+  };
   
 
   return (
@@ -97,6 +115,18 @@ export const SearchBar = () => {
 {selectedUser && (
       <DeleteUserForm userId={selectedUser.id} onDelete={() => setSelectedUser(null)} />
     )}
+ <div className="login-register-container">
+        <button onClick={handleOpenLoginForm} className="login-button">
+          Login
+        </button>
+        {isLoginFormOpen && <LoginForm onClose={handleCloseLoginForm} />}
+
+        <button onClick={handleOpenRegisterForm} className="register-button">
+          Register
+        </button>
+        {isRegisterFormOpen && <RegisterForm onClose={handleCloseRegisterForm} />}
+      </div>
+  
       </div>
     </div>
   );

@@ -8,6 +8,10 @@ import {
   insertDummyData,
 } from "./controllers/dbController.js";
 import { deleteUser } from "./controllers/deleteController.js";
+import { registerUser } from './controllers/authController.js';
+import { login } from './controllers/loginController.js';
+import { getUserById, getUserByUsername } from './controllers/userController.js'; // Assuming a UserController for user operations
+
 
 const app = express();
 
@@ -88,6 +92,44 @@ app.use(express.json());
       }
     });
 
+    app.post('/register', async (req, res) => {
+      await registerUser(req, res);
+    })
+
+    app.post('/login', async (req, res) => {
+      await login(req, res);
+    })
+    
+
+    app.get('/users/:id', async (req, res) => {
+      const userId = req.params.id;
+      try {
+        const user = await getUserById(userId);
+        if (user) {
+          res.json(user);
+        } else {
+         console.log('user not found')
+        }
+      } catch (error) {
+        console.error('errr:', error);
+        res.status(500).json({error: 'server error' });
+      }
+    });
+
+    app.get('/users/username/:username', async (req, res) => {
+      const username = req.params.username;
+      try {
+        const user = await getUserByUsername(username);
+        if (user) {
+          res.json(user);
+        } else {
+         console.log('user not found')
+        }
+      } catch (error) {
+        console.error('err fetching user:', error);
+        res.status(500).json({error: 'server error' });
+      }
+    });
     app.listen(3000, () => console.log("Listening on 3000"));
   } catch (err) {
     process.exit(1);

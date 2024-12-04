@@ -9,7 +9,10 @@ export async function initializeDatabase() {
       `  CREATE TABLE IF NOT EXISTS Users (
           firstName TEXT, 
           lastName TEXT,
-          id INTEGER PRIMARY KEY AUTOINCREMENT
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+           username TEXT UNIQUE,
+        password_hash TEXT,
+        salt TEXT
           ); `,
       (err) => {
         if (err) {
