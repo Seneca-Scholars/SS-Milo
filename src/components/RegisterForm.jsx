@@ -14,24 +14,17 @@ export function RegisterForm() {
         const response = await fetch('http://localhost:3000/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password, firstName, lastName }),
+          body: JSON.stringify({ firstName, lastName, username, password }),
         });
   
    
-      if (response.ok) { 
+      
         const responseData = await response.json(); 
   
         if (responseData.success) { 
           
-        } else {
-          
-          console.error('Registration failed:', responseData.message || 'xD');
-          alert('xD.');
-        }
       } else {
- 
-        console.error('Reg failed:', response.statusText);
-        alert('try again later.');
+ ;
       }
     } catch (error) {
       console.error('ERR registering:', error);
@@ -41,6 +34,23 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+            <div>
+        <label htmlFor="firstName">First Name:</label> <input
+          type="text"
+          id="firstName"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          type="text"
+          id="lastName"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+      </div>
       <div>
         <label htmlFor="username">Username:</label>
         <input
@@ -57,23 +67,6 @@ export function RegisterForm() {
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="firstName">First Name:</label> <input
-          type="text"
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
         />
       </div>
       <button type="submit">Register</button>
