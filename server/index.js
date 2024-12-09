@@ -11,9 +11,19 @@ import { deleteUser } from "./controllers/deleteController.js";
 import { registerUser } from './controllers/authController.js';
 import { login } from './controllers/loginController.js';
 import { getUserById, getUserByUsername } from './controllers/userController.js'; // Assuming a UserController for user operations
+import dotenv from 'dotenv';
+import session from "express-session"; 
 
+dotenv.config();
 
 const app = express();
+app.use(
+  session({
+    secret: 'truth', 
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use(cors());
 app.use(express.json());

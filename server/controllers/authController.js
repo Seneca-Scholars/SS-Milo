@@ -1,23 +1,24 @@
-import bcrypt, { hash } from "bcrypt";
+import { createUser as createUserPath } from "../models/userPath.js"
+import User from "../models/userModel.js";
+import { generateAuthToken, hashPassword } from "../utilities.js";
 
 export async function registerUser(req, res) {
-    const { username, password, firstName, lastName } = req.body;
+  const { firstName, lastName, username, password } = req.body;
+  console.log(req.body)
 
-    if (!username || !password|| !firstName || !lastName ) {
-       return console.log('missing fields')
-} try {
-
-        const saltRounds = 5
-        const salt = await bcrypt.genSalt(saltRounds);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-         
-            const newUser = new User(firstName, lastName, username, hashedPassword, salt);
-            await User.createUser(db, newUser);
-            res.json({message: 'user created succesfully'});
-        } catch (error) {
-            console.error('err creating user:'. error);
-            res.status(500).json({error: 'err creating user'});
-        }
-    }
-
+//   try {
+    const hashedPassword = await hashPassword(password); 
+    const userId = await createUserPath(firstName, lastName, username, hashedPassword); 
+    const user = new User(userId, firstName, lastName, username, hashedPassword); 
+    const token = generateAuthToken(user);
+    req.session.user = user;
+    res.json({message: 'user created', token});
+//   } catch (error) {
+//     if (error.message === "user already exists") {
+//       return res.status(400).json({ error: "user exists" }); 
+//     } else {
+//       console.error("err creating user:", error);
+//       return res.status(500).json({ error: "err creating user" }); 
+//     }
+//   }
+}
