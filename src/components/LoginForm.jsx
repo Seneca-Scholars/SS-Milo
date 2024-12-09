@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 export function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState(''); 
+  const [lastName, setLastName] = useState('');
+  const navigate = useNavigate(); 
 
 
   const handleSubmit = async (e) => {
@@ -16,17 +19,14 @@ export function LoginForm() {
         headers: {
           'Content-Type': 'application/json' 
         },
-        body: JSON.stringify({ username, password }) 
+        body: JSON.stringify({ firstName, lastName, username, password, }) 
       });
- 
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
 
-      const { token } = response.data;
+   const data = await response.json();
+      const token = data.token;
       localStorage.setItem('token',token);
-      navigate('/home');
-    } catch (error) {
+      navigate('/'); 
+        } catch (error) {
         console.error(' failed:', error);
         alert('invalid username or password');
     }
@@ -42,6 +42,24 @@ export function LoginForm() {
           value={username} 
 
           onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="firstName">First Name:</label>
+        <input
+          type="text"
+          id="firstName"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="lastName">Last Name:</label>
+        <input
+          type="text"
+          id="lastName"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
         />
       </div>
       <div>
