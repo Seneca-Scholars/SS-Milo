@@ -10,8 +10,9 @@ import {
 import { deleteUser } from "./controllers/deleteController.js";
 import { registerUser } from './controllers/authController.js';
 import { login } from './controllers/loginController.js';
-import { getUserById, getUserByUsername } from './controllers/userController.js'; // Assuming a UserController for user operations
-import dotenv from 'dotenv';
+import { getUserById, getUserByUsername } from './controllers/userController.js';
+import { authenticateToken, verifyRoute  } from "./controllers/verifyController.js";
+import dotenv  from 'dotenv'; 
 import session from "express-session"; 
 
 dotenv.config();
@@ -140,6 +141,11 @@ app.use(express.json());
         res.status(500).json({error: 'server error' });
       }
     });
+
+
+    app.get('/auth/verify', authenticateToken, verifyRoute); 
+
+
     app.listen(3000, () => console.log("Listening on 3000"));
   } catch (err) {
     process.exit(1);
