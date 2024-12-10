@@ -15,9 +15,9 @@ export async function deleteUser(userId, deletedData) {
 
     try {
      db.run(sql, [userId]);
-        console.log('User deleted successfully.');
+        console.log('user deleted successfully.');
     } catch (error) {
-        console.error('Error deleting user:', error);
+        console.error('err deleting user:', error);
         throw error;
     }
 }

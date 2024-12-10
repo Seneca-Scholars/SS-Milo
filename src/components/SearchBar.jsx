@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import AddUserForm from "./addUserForm";
 import UpdateUserForm from "./updateUserForm";
+import DeleteUserForm from "./deleteUserForm";
 import { SearchResultsList } from "../components/SearchResultList";
 // import { useNavigate } from 'react-router-dom';
 import "./searchBar.css";
@@ -51,6 +52,10 @@ export const SearchBar = () => {
     setSelectedUser(user);
     // navigate(`/users/${user.id}`);
   };
+  const handleDeleteUser = (userId) => {
+    console.log(`deleting user with id: ${userId}`);
+  };
+  
     
   
 
@@ -67,7 +72,7 @@ export const SearchBar = () => {
   
       <div className="search-results">
         {results.length > 0 ? (
-          <SearchResultsList results={results} onSelectUser={handleSelectUser} />
+          <SearchResultsList results={results} onSelectUser={handleSelectUser} onDeleteUser={handleDeleteUser} />
         ) : (
           <p>ni search results found.</p>
         )}
@@ -88,6 +93,10 @@ export const SearchBar = () => {
         {selectedUser && (
           <UpdateUserForm user={selectedUser} onSubmit={() => setSelectedUser(null)} />
         )}
+
+{selectedUser && (
+      <DeleteUserForm userId={selectedUser.id} onDelete={() => setSelectedUser(null)} />
+    )}
       </div>
     </div>
   );
