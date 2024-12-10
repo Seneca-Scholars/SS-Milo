@@ -11,8 +11,12 @@ export async function getUserById(userId) {
   }
   export async function getUserByUsername(username) {
     try {
-      const user = await User.findOne({ username });
-      return user;
+      const users = await User.find({ username }); 
+      if (users.length > 0) {
+        return users[0]; 
+      } else {
+        return null;
+      }
     } catch (error) {
       console.error('camt fetch user by username:', error);
       throw error;

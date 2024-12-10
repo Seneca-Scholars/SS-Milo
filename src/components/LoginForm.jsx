@@ -25,7 +25,7 @@ export function LoginForm() {
    const data = await response.json();
       const token = data.token;
       localStorage.setItem('token',token);
-      navigate('/'); 
+      navigate('/dashboard'); 
         } catch (error) {
         console.error(' failed:', error);
         alert('invalid username or password');

@@ -3,10 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import { SearchBar } from "./components/SearchBar";
 import { SearchResultsList } from "./components/SearchResultList.jsx";
+import Dashboard from './pages/Dashboard.jsx';
+import { Navigate } from 'react-router-dom';
+import RegisterForm from './components/RegisterForm.jsx';
 // import UserDetail from '../pages/userDetail.jsx'
 
 function App() {
   const [results, setResults] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   console.log("playdo", results)
   return (
     <BrowserRouter>
@@ -15,18 +19,19 @@ function App() {
           LETS TAKE A LOOK
         </header>
         <div className="search-bar-container">
-          <SearchResultsList results={results} />
+          <SearchResultsList results={results} /> 
         </div>
         <Routes>
-        <Route path="/" element={<SearchBar />} />
-        {/* <Route path="/users/:userId" element={<UserDetail />} /> */}
+          <Route path="/" element={<SearchBar />} /> 
+          <Route 
+            path="/dashboard" 
+            element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />} 
+          /> 
+          <Route path="/register" element={<RegisterForm setIsLoggedIn={setIsLoggedIn} />} /> 
         </Routes>
-      </div>
-      <div>
-      
       </div>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;
