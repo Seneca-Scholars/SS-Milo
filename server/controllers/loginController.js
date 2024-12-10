@@ -1,12 +1,11 @@
 import bcrypt from "bcrypt";
 import { db } from "./dbController.js";
+import jwt from 'jsonwebtoken';
 import { generateAuthToken } from "../utilities.js";
 
 
 export async function login(req, res) { 
   const { username, password } = req.body;
-  console.log(req.body)
-
   try {
     const user = await new Promise((resolve, reject) => {
       db.get('SELECT id, firstName, lastName, username, password_hash FROM users WHERE username = ?', 
@@ -24,28 +23,20 @@ export async function login(req, res) {
     //   return res.status(401).json({ error: "invalid username or password" });
     // }
 
-      const isMatch = await new Promise((resolve, reject) => { 
-      bcrypt.compare(password, user.password_hash, (err, result) => {
-        if (err) {
-          reject(err); 
-        } else {
-          resolve(result); 
-          console.log(result);
+      const isMatch = bcrypt.compareSync(password, user.password_hash);
+      if (!isMatch) {
+        console.log('paap');
 
-        }
-      });
-    });
+      }
 
+      const token = jwt.sign(
+        { id: user.id, username: user.username },
+        process.env.JWT_SECRET
+      );
+      res.send({ token }) 
+     } catch (error) {
+        console.error("err:", error);
 
-    if (isMatch) {
-      const token = generateAuthToken(user); 
-      res.json({ token }); 
-    } else {
-      console.log(password);
-      console.log(user.password_hash);
+      }
     }
-
-  } catch (error) {
-    console.error('something didnt let you log in:', error); 
-  }
-}
+    
