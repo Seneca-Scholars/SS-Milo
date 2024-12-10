@@ -19,16 +19,18 @@ export function RegisterForm() {
   
    
       
-        const responseData = await response.json(); 
-  
-        if (responseData.success) { 
-          
+        if (response.ok) {
+          const responseData = await response.json();
+        console.log(responseData)
+        localStorage.setItem('token', responseData.token);
+        setIsLoggedIn(true); 
+        navigate('/dashboard')
+   
       } else {
- ;
+        console.error('reg failed:', await response.text());
+        alert('reg failed. try again later.');
       }
     } catch (error) {
-      console.error('ERR registering:', error);
-      alert(' please try again later.');
     }
   };
 
