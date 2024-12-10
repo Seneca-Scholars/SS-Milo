@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function RegisterForm() {
@@ -6,8 +6,7 @@ export function RegisterForm() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,40 +17,22 @@ export function RegisterForm() {
           body: JSON.stringify({ firstName, lastName, username, password }),
         });
   
-      
+   
       
         if (response.ok) {
-        const responseData = await response.json();
+          const responseData = await response.json();
         console.log(responseData)
         localStorage.setItem('token', responseData.token);
-        console.log(responseData.token);
         setIsLoggedIn(true); 
+        navigate('/dashboard')
+   
       } else {
         console.error('reg failed:', await response.text());
         alert('reg failed. try again later.');
       }
     } catch (error) {
-      console.log('poop');
     }
-  }; 
-
-  useEffect(() => { 
-    console.log('isLoggedIn:', isLoggedIn); 
-    if (isLoggedIn){
-      navigate('/dashboard'); 
-     }
-  }, [isLoggedIn]
-  
-); 
-
-
-// if (isLoggedIn){
-//   return(
-//     <Navigate to={ "/dashboard"} />
-//   );
-// }
-
-
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -90,7 +71,7 @@ export function RegisterForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit">Register </button>
+      <button type="submit">Register</button>
     </form>
   );
 }
