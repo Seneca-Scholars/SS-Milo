@@ -19,6 +19,7 @@ export async function registerUser(req, res) {
       process.env.JWT_SECRET, 
       { expiresIn: '1h' } 
     );  
+    
     req.session.user = user;
     res.json({message: 'user created', token});
 

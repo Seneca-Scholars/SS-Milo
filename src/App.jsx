@@ -6,7 +6,6 @@ import { SearchResultsList } from "./components/SearchResultList.jsx";
 import Dashboard from './pages/Dashboard.jsx';
 import { Navigate } from 'react-router-dom';
 import RegisterForm from './components/RegisterForm.jsx';
-// import UserDetail from '../pages/userDetail.jsx'
 
 function App() {
   const [results, setResults] = useState([]);
@@ -23,11 +22,10 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<SearchBar />} /> 
-          <Route 
-            path="/dashboard" 
-            element={isLoggedIn ? <Dashboard /> : <Navigate to="/" />} 
+          <Route    path="/dashboard"  
+            element={<Dashboard />} 
           /> 
-          <Route path="/register" element={<RegisterForm setIsLoggedIn={setIsLoggedIn} />} /> 
+          <Route path="/register" element={<RegisterForm />} /> 
         </Routes>
       </div>
     </BrowserRouter>

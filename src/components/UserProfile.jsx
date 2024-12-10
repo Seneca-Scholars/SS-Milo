@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
-export function UserProfile() {
+export  function UserProfile() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('/user', {
+        const response = await fetch('http://localhost:3000/auth/verify', {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        setUser(response.data);
+        const data = await response.json()
+        setUser(data);
       } catch (error) {
         console.error('err fetching user data:', error);
       }
