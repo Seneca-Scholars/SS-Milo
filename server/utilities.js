@@ -14,17 +14,16 @@ export async function hashPassword(password) {
   return await bcrypt.hash(password, salt); 
 }
 
-export function generateAuthToken(user) {
-  const payload = {
-    userId: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    username: user.username
-  };
+export const generateAuthToken = (user) => {
+  return jwt.sign(
+    { id: user.id, username: user.username },
+    process.env.JWT_SECRET 
+  );
+};
 
-  const secretKey = process.env.JWT_SECRET;
+//   const secretKey = process.env.JWT_SECRET;
 
-  const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 
+//   const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 
 
-  return token;
-}
+//   return token;
+// }

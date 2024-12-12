@@ -1,33 +1,24 @@
-import { createUser as createUserPath } from "../models/userPath.js"
-import User from "../models/userModel.js";
-import { hashPassword } from "../utilities.js";
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+import registerUserService from "../services/authService.js";
 
-dotenv.config();
 
-export async function registerUser(req, res) {
+
+export const registerUser = async (req, res)=> {
+  try{
+
   const { firstName, lastName, username, password } = req.body;
+  const { user, token } = await registerUserService(firstName, lastName, username, password); 
   console.log(req.body)
 
-//   try {
-    const hashedPassword = await hashPassword(password); 
-    const userId = await createUserPath(firstName, lastName, username, hashedPassword); 
-    const user = new User(userId, firstName, lastName, username, hashedPassword); 
-    const token = jwt.sign(
-      { userId: userId, username: username }, 
-      process.env.JWT_SECRET, 
-      { expiresIn: '1h' } 
-    );  
-    req.session.user = user;
-    res.json({message: 'user created', token});
+  res.json({message: 'blah', user, token });
+   } catch (error) {
+    // if (error.message === "user already exists") {
+    //   return res.status(400).json({ error: "user already exists" }); 
+    // } else {
+    //   return res.status(500).json({ error: "err creating user" }); 
+    // }
+  }
+};
 
-//   } catch (error) {
-//     if (error.message === "user already exists") {
-//       return res.status(400).json({ error: "user exists" }); 
-//     } else {
-//       console.error("err creating user:", error);
-//       return res.status(500).json({ error: "err creating user" }); 
-//     }
-//   }
-}
+
+
+

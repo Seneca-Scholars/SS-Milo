@@ -8,12 +8,12 @@ import {
   insertDummyData,
 } from "./controllers/dbController.js";
 import { deleteUser } from "./controllers/deleteController.js";
-import { registerUser } from './controllers/authController.js';
-import { login } from './controllers/loginController.js';
 import { getUserById, getUserByUsername } from './controllers/userController.js';
 import { authenticateToken, verifyRoute  } from "./controllers/verifyController.js";
 import dotenv  from 'dotenv'; 
 import session from "express-session"; 
+import authRoutes from "./routes/authRoutes.js"
+import loginRoutes from "./routes/loginRoutes.js"
 
 dotenv.config();
 
@@ -103,13 +103,10 @@ app.use(express.json());
       }
     });
 
-    app.post('/register', async (req, res) => {
-      await registerUser(req, res);
-    })
+    app.use('/auth', authRoutes); 
 
-    app.post('/login', async (req, res) => {
-      await login(req, res);
-    })
+
+    app.use('/svr', loginRoutes); 
     
 
     app.get('/users/:id', async (req, res) => {
@@ -146,7 +143,7 @@ app.use(express.json());
     app.get('/auth/verify', authenticateToken, verifyRoute); 
 
 
-    app.listen(3000, () => console.log("Listening on 3000"));
+    app.listen(3000, () => console.log("hearing u on 3000"));
   } catch (err) {
     process.exit(1);
   }
