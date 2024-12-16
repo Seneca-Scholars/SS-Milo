@@ -10,7 +10,7 @@ const UpdateUserForm = ({ user, onSubmit }) => {
 
 
     try {
-      const response = await fetch(`http://localhost:3000/user/${user.id}`, {
+      const response = await fetch(`http://localhost:3000/update/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -11,7 +11,6 @@ export const registerUser = async (req, res)=> {
 
   res.json({message: 'blah', user, token });
    } catch (error) {
-    // if (error.message === "user already exists") {
     //   return res.status(400).json({ error: "user already exists" }); 
     // } else {
     //   return res.status(500).json({ error: "err creating user" }); 

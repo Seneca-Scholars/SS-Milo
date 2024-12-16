@@ -1,23 +1,13 @@
-import { db } from './dbController.js';
+import { searchUserService } from "../services/peopleService.js";
 
-export const searchUser = async (query) => {
-    try {
-        const rows = await new Promise((resolve, reject) => {
-          db.all('SELECT * FROM Users WHERE firstName LIKE ? OR lastName LIKE ?', `%${query}%`, `%${query}%`, (err, rows) => { //selects all users whose name is like the query string 
-            if (err) {
-              reject(err);
-            } else {
-              resolve(rows);
-            }
-          });
-               });
+export const searchUserController = async (req, res) => {
+  const query = req.query.q;
 
-               if (rows.length === 0) {
-                return null;
-               }
-    return rows;
-            } catch (err) {
-                console.error('err fetching users:', err);
-                throw err;
-            }
-     }
+  try {
+    const results = await searchUserService(query);
+    res.json(results); 
+  } catch (err) {
+    console.error("err fetching users:", err);
+    res.status(500).json({ message: "err searching for users" });
+  }
+};

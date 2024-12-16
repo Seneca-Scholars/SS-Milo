@@ -1,22 +1,12 @@
-import { db } from "./dbController.js";
+import { updateUserService } from "../services/updateUserService.js";
 
-export async function updateUser(userId, updatedData) {
-  if (!updatedData) {
-    return reject(new Error("0 data for update"));
+export const updateUserController = async (req, res) => {
+  const userId = req.params.id;
+  const updatedData = req.body;
+
+  try {
+    await updateUserService(userId, updatedData);
+  } catch (err) {
+    console.error('err', err);
   }
-  const firstName = updatedData?.firstName;
-  const lastName = updatedData?.lastName;
-
-  console.log("updating user ID:", userId, "with data:", firstName, lastName);
-
-  const sql = `UPDATE Users SET firstName = ?, lastName = ? WHERE id = ?`;
-
-  return new Promise((reject) => {
-    db.run(sql, [firstName, lastName, userId], (err) => {
-      if (err) {
-        console.error("err executing SQL query:", err);
-        reject(new Error(`err updating user: ${err.message}`));
-      }
-    });
-  });
-}
+};

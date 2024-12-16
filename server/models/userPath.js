@@ -12,9 +12,9 @@ export async function createUser(firstName, lastName, username, password) {
     });
   });
 
-  // if (existingUser) {
-  //   throw new Error("user already exists"); 
-  // }
+  if (existingUser) {
+    throw new Error("user already exists"); 
+  }
 
   const hashedPassword = await hashPassword(password);
   return new Promise((resolve, reject) => {

@@ -4,7 +4,7 @@ export const DeleteUserForm = ({ userId, onDelete }) => {
     const handleDelete = async () => {
       if (window.confirm('are you sure you wish to delete')) {
         try {
-            const response  = await fetch(`http://localhost:3000/user/${userId}`, {
+            const response  = await fetch(`http://localhost:3000/delete/${userId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
