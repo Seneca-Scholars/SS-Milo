@@ -7,7 +7,6 @@ import Dashboard from './pages/Dashboard.jsx';
 import RegisterForm from './components/RegisterForm.jsx';
 import { UserProvider } from './components/UserContext.jsx';
 import { ProtectedRoute } from './components/pRoute.jsx';
-import * as SecuredDashboard from './components/pDashboard.jsx';
 
 function App() {
   return (
@@ -34,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
