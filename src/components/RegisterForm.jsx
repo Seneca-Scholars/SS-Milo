@@ -12,7 +12,7 @@ export function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const response = await fetch('http://localhost:3000/auth/register', {
+        const response = await fetch('http://localhost:3000/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ firstName, lastName, username, password }),
@@ -45,11 +45,11 @@ export function RegisterForm() {
 ); 
 
 
-// if (isLoggedIn){
-//   return(
-//     <Navigate to={ "/dashboard"} />
-//   );
-// }
+if (isLoggedIn){
+  return(
+    <navigate to={ "/dashboard"} />
+  );
+}
 
 
 

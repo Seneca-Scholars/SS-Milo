@@ -1,4 +1,3 @@
-import User from "../models/userModel.js";
 import { getUserByIdService } from "../services/getUserByService.js";
 
 export const getUserByIdController = async (req, res) => {

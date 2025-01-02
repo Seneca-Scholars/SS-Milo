@@ -14,7 +14,7 @@ export function LoginForm() {
     e.preventDefault();
   
     try {
-      const response = await fetch ('http://localhost:3000/svr/login', {
+      const response = await fetch ('http://localhost:3000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json' 
@@ -22,9 +22,13 @@ export function LoginForm() {
         body: JSON.stringify({ firstName, lastName, username, password, }) 
       });
 
-   const data = await response.json();
+     const data = await response.json();
+     console.log(data)
+
       const token = data.token;
       localStorage.setItem('token',token);
+
+      
       navigate('/dashboard'); 
         } catch (error) {
         console.error(' failed:', error);

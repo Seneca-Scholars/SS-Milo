@@ -6,7 +6,6 @@ import DeleteUserForm from "./deleteUserForm";
 import RegisterForm from "./RegisterForm";
 import LoginForm from "./LoginForm";
 import { SearchResultsList } from "../components/SearchResultList";
-// import { useNavigate } from 'react-router-dom';
 import "./searchBar.css";
 
 export const SearchBar = () => {

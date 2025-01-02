@@ -11,8 +11,9 @@ export async function generateSalt() {
 
 export async function hashPassword(password) {
   const salt = await generateSalt();
-  return await bcrypt.hash(password, salt); 
+  return bcrypt.hashSync(password, salt); 
 }
+
 
 export const generateAuthToken = (user) => {
   return jwt.sign(
@@ -21,9 +22,4 @@ export const generateAuthToken = (user) => {
   );
 };
 
-//   const secretKey = process.env.JWT_SECRET;
 
-//   const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 
-
-//   return token;
-// }

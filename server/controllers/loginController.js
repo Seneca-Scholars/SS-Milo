@@ -5,12 +5,11 @@ import {loginUserService}   from '../services/loginService.js';
     const { username, password } = req.body;
     const token = await loginUserService(username, password); 
     res.status(200).json({ token }); 
-  } catch (error) {
-    if (error.message === "invalid creds") {
-      return res.status(401).json({ error: "wrong creds" }); 
-    } else {
-      return res.status(500).json({ error: "server err" }); 
-    }
+  } catch (error)
+   {
+    if (error.message === "invalid credentials") {
+      return res.status(401).json({ error: "you dont exist" });
+      }
   }
 };
 
