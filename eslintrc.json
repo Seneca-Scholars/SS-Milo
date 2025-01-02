@@ -1,4 +1,7 @@
 {
+    "extends": ["react-app", "prettier"],
+  "plugins": ["react"],
+  "rules": {
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none",
@@ -7,4 +10,5 @@
     "useTabs": false,
     "bracketSpacing": true,
     "arrowParens": "always"
+  }
   }

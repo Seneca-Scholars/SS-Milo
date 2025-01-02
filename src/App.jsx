@@ -31,6 +31,6 @@ function App() {
     </BrowserRouter>
     </UserProvider>
   );
-}
 
-export default App
+
+export default App;
