@@ -1,23 +1,13 @@
-import { db } from '../dbController.js';
+import { deleteUserService } from "../services/deleteUserService";
 
-export async function deleteUser(userId, deletedData) {
-    if (!deleteUser) {
-        return reject(new Error ('0 data for deletion'));
-    }
-    const firstName = deletedData?.firstName;
-    const lastName =  deletedData?.lastName;
-
-    console.log(
-        'removing user with ID:', userId, 'with data', firstName, lastName
-    );
-
-    const sql = `DELETE FROM Users WHERE id = ?`;
-
+export const deleteUserController = async (req, res) => {
+    const { userId } = req.params; 
+  
     try {
-     db.run(sql, [userId]);
-        console.log('user deleted successfully.');
+      await deleteUserService(userId); 
+      res.status(204).send(); 
     } catch (error) {
-        console.error('err deleting user:', error);
-        throw error;
+      console.error('err deleting user:', error);
+      res.status(500).json({ error: 'an error occurred while deleting the user' }); // Send a 500 Internal Server Error with a user-friendly message
     }
-}
+  };

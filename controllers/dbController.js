@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client';
 import { hashPassword } from '../utilities.js';
+import db from '../prismaInit.js';
 
-export const db = new PrismaClient();
 
 
 export async function initializeDatabase() {
@@ -73,5 +72,4 @@ console.error("err during data insertion:", error);
 }
 }
 
-export default db;
 

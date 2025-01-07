@@ -1,15 +1,14 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import db from "../prismaInit.js";
 
 
 export const deleteUserService = async (userId) => {
   try {
-    await prisma.users.delete({
-      where: { id: userId },
+    const parsedUserId = parseInt(userId); 
+    await db.users.delete({
+      where: { id: parsedUserId },
     });
   } catch (error) {
-    console.error("Error deleting user:", error);
+    console.error("err deleting user:", error);
     throw error;
   }
 };

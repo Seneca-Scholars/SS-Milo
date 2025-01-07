@@ -1,32 +1,27 @@
-import { db } from "../controllers/dbController.js";
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import db from "../prismaInit.js";
 
 export const updateUserService = async (userId, updatedData) => {
-    if (!updatedData) {
+   
+  if (!updatedData) {
         throw new Error("0 data provided for update");
-    
     }
 
-    const { firstName, lastName } = updatedData;
+    const parsedUserId = parseInt(userId); 
+    const { firstName, lastName, username} = updatedData;
 
     try {
-        await new Promise((resolve, reject) => {
-            db.run(
-              `UPDATE Users SET firstName = ?, lastName = ? WHERE id = ?`,
-              [firstName, lastName, userId],
-              (err) => {
-                if (err) {
-                  reject(new Error(`err updating user: ${err.message}`));
-                } else {
-                  resolve();
-                }
-              }
-            );
-          });
-        } catch (error) {
-          console.error("err updating user:", error);
-          throw error; 
-        }
-      };
+      const updatedUser = await db.users.update({
+        where: { id: parsedUserId },
+        data: {
+          firstName,
+          lastName,
+          username,
+        },
+      });
+  
+      return updatedUser; 
+    } catch (error) {
+      console.error("err updating user:", error);
+      throw error; 
+    }
+  };

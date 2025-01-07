@@ -1,12 +1,11 @@
 import bcrypt from "bcrypt";
 import { generateAuthToken } from "../utilities.js";
-import { PrismaClient } from '@prisma/client';
+import db from "../prismaInit.js";
 
-const prisma = new PrismaClient();
 
 export async function loginUserService(username, password) {
   try {
-    const user = await prisma.users.findUnique({
+    const user = await db.users.findUnique({
       where: { username },
 
       //   (err, row) => {

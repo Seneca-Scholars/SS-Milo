@@ -1,14 +1,13 @@
 // import { createUser as createUserPath } from '../models/userPath.js';
 // import User from '../models/userModel.js';
+import db from '../prismaInit.js';
 import { generateAuthToken, hashPassword } from '../utilities.js';
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
 
  const registerUserService = async (firstName, lastName, username, password) => {
   try {
     const hashedPassword = await hashPassword(password); 
-    const newUser = await prisma.users.create({
+    const newUser = await db.users.create({
       data: {
         firstName,
         lastName,
@@ -24,7 +23,7 @@ const prisma = new PrismaClient();
     console.error(error); 
     throw error; 
   } finally {
-    await prisma.$disconnect();
+    await db.$disconnect();
   }
 };
 

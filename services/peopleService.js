@@ -1,10 +1,8 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import db from "../prismaInit.js";
 
 export const searchUserService = async (query) => {
   try {
-    const users = await prisma.users.findMany({
+    const users = await db.users.findMany({
       where: {
         OR: [
           { firstName: { contains: query } },
