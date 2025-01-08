@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import {
   initializeDatabase,
-  insertDummyData,
 } from "./controllers/dbController.js";
 
 
@@ -39,7 +38,7 @@ app.use(express.json());
 (async () => {
   try {
     await initializeDatabase();
-    await insertDummyData();
+
 
     app.use("/", peopleRoutes);
 
