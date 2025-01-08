@@ -3,10 +3,19 @@ CREATE TABLE "Users" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
-    "passwordHash" TEXT NOT NULL
+    "username" TEXT,
+    "passwordHash" TEXT
 );
 
+-- CreateTable
+CREATE TABLE "Profile" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "description" TEXT,
+    "age" INTEGER,
+    "dateJoined" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "userId" INTEGER NOT NULL,
+    CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
 INSERT INTO "Users" (firstName, lastName, username, passwordHash) 
 VALUES
   ('John', 'Doe', 'johndoe1', '$2b$10$orHlPQOONCEP3zoCv1RCeeB/Wn7WYfBra79EYZV7A17nG4/qkp.pi'), 
@@ -16,3 +25,6 @@ VALUES
   ('David', 'Wilson', 'dwilson1', '$2b$10$XwWMp3S593chJQQxbHdNYeaTXcPaisi..hEs3FMckT584Tq6Oqgyi'); 
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Profile_userId_key" ON "Profile"("userId");

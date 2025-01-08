@@ -12,10 +12,21 @@ datasource db {
   provider = "sqlite"
   url      = "file:./mydb.db"
 }
+
 model Users {
-  id          Int     @id @default(autoincrement())
-  firstName   String
-  lastName    String
-  username    String? @unique
+  id           Int      @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  username     String?  @unique
   passwordHash String?
+  Profile      Profile?
+}
+
+model Profile {
+  id          Int      @id @default(autoincrement())
+  description String?
+  age         Int?
+  dateJoined  DateTime @default(now())
+  userId      Int      @unique
+  user        Users    @relation(fields: [userId], references: [id])
 }
