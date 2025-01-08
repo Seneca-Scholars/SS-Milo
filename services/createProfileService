@@ -1,0 +1,29 @@
+import db from "../prisma/prismaInit.js";
+
+export const createProfileService = async (userId, description, age) => {
+  try {
+    const profile = await db.profile.create({
+      data: {
+        userId, 
+        description,
+        age,
+      },
+    });
+    return profile; 
+  } catch (error) {
+    console.error("err creating profile:", error);
+    throw error; 
+  }
+};
+
+export const getProfileByUserIdService = async (userId) => {
+    try {
+      const profile = await db.profile.findUnique({
+        where: { userId },
+      });
+      return profile; 
+    } catch (error) {
+      console.error("ERR fetching profile:", error);
+      throw error; 
+    }
+  };

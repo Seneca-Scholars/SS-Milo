@@ -8,7 +8,10 @@ export const registerUser = async (req, res)=> {
   const { user, token } = await registerUserService(firstName, lastName, username, password); 
   console.log(req.body)
 
-  res.json({message: 'blah', user, token });
+  const profile = await createProfileService(user.id, description, age); 
+
+
+  res.json({message: 'blah', user, token, profile });
    } catch (error) {
       return res.status(400).json({ error: "user already exists" }); 
     } 

@@ -1,4 +1,4 @@
-import db from "../prismaInit.js";
+import db from "../prisma/prismaInit.js";
 
 
 export const getUserByIdService = async (userId) => {

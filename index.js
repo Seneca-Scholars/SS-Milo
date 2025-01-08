@@ -18,6 +18,7 @@ import updatedUserRoutes from "./routes/updateUserRoutes.js";
 import peopleRoutes from "./routes/peopleRoutes.js";
 import getUserByRoutes from "./routes/getUserByRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js"
 import dotenv from "dotenv";
 import session from "express-session";
 
@@ -59,6 +60,8 @@ app.use(express.json());
     app.use("/dashboard", dashboardRoutes);
 
     app.use("/auth/verify", authenticateToken, verifyRoute);
+
+    app.use('/profiles', profileRoutes); 
 
     app.listen(3000, () => console.log("hearing u on 3000"));
   } catch (err) {

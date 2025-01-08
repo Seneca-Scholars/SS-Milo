@@ -1,7 +1,5 @@
-// import { createUser as createUserPath } from '../models/userPath.js';
-// import User from '../models/userModel.js';
-import db from '../prismaInit.js';
-import { generateAuthToken, hashPassword } from '../utilities.js';
+import db from '../prisma/prismaInit.js';
+import { generateAuthToken, hashPassword } from '../utilities/utilities.js';
 
 
  const registerUserService = async (firstName, lastName, username, password) => {

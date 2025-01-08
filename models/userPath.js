@@ -1,5 +1,5 @@
-import db from "../prismaInit.js";
-import {hashPassword } from "../utilities.js";
+import db from "../prisma/prismaInit.js";
+import {hashPassword } from "../utilities/utilities.js";
 
 export async function createUser(firstName, lastName, username, password) {
   try{
