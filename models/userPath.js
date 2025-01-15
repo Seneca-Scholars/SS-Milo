@@ -13,7 +13,7 @@ export async function createUser(firstName, lastName, username, password) {
   }
 
   const hashedPassword = await hashPassword(password);
-  const user = await db.user.create({
+  const user = await db.users.create({
     data: {
       firstName,
       lastName,

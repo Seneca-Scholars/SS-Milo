@@ -4,8 +4,8 @@ import { generateAuthToken, hashPassword } from '../utilities/utilities.js';
 
  const registerUserService = async (firstName, lastName, username, password) => {
   try {
-    const hashedPassword = await hashPassword(password); 
-    const newUser = await db.users.create({
+    const hashedPassword = await hashPassword(password);
+     const newUser = await db.users.create({
       data: {
         firstName,
         lastName,
@@ -22,9 +22,7 @@ import { generateAuthToken, hashPassword } from '../utilities/utilities.js';
     throw error; 
   } finally {
     await db.$disconnect();
-  }
-};
+  } 
+}
 
-
-
-export default registerUserService;
+export default registerUserService

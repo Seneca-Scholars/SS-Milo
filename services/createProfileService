@@ -1,12 +1,12 @@
 import db from "../prisma/prismaInit.js";
 
-export const createProfileService = async (userId, description, age) => {
+export const createProfileService = async (userId, age, description ) => {
   try {
     const profile = await db.profile.create({
       data: {
         userId, 
-        description,
         age,
+        description,
       },
     });
     return profile; 
