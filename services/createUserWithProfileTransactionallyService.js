@@ -1,11 +1,12 @@
-import db from "../prisma/prismaInit.js";
+import db from "../libs/prismaInit.js";
 import { hashPassword } from "../utilities/utilities.js";
 
-export const createUserWithProfileTransactionally = async (userData) => {
+export const createUserWithProfileTransactionally = async (userData, profileData) => {
     try {
       // const {firstName, lastName, username, password} = req.body;
       const result = await db.$transaction(async (tx) => {
-        const { firstName, lastName, password, ...profileData } = userData;
+        const { firstName, lastName, username, password } = userData;
+        const { description, age } = profileData
         const hashedPassword = await hashPassword(password); 
 
         const newUser = await tx.users.create({
@@ -22,7 +23,9 @@ export const createUserWithProfileTransactionally = async (userData) => {
         const newProfile = await tx.profile.create({
           data: {
             userId: newUser.id,
-            ...profileData,
+            description,
+            age
+          //  ...profileData,
           },
         });
         console.log(userData, profileData)
@@ -35,3 +38,4 @@ export const createUserWithProfileTransactionally = async (userData) => {
       throw error;
     }
   };
+  

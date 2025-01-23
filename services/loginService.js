@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { generateAuthToken } from "../utilities/utilities.js";
-import db from "../prisma/prismaInit.js";
+import db from "../libs/prismaInit.js";
 
 
 export async function loginUserService(username, password) {

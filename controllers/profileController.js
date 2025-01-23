@@ -1,4 +1,4 @@
-import { createProfileService, getProfileByUserIdService } from "../services/createProfileService";
+import { createProfileService, getProfileByUserIdService } from "../services/createProfileService.js";
 
 export const createProfileController = async (req, res) => {
   try {

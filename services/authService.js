@@ -1,4 +1,4 @@
-import db from '../prisma/prismaInit.js';
+import db from '../libs/prismaInit.js';
 import { generateAuthToken, hashPassword } from '../utilities/utilities.js';
 
 
@@ -20,9 +20,9 @@ import { generateAuthToken, hashPassword } from '../utilities/utilities.js';
   } catch (error) {
     console.error(error); 
     throw error; 
-  } finally {
-    await db.$disconnect();
-  } 
+  // } finally {
+  //   await db.$disconnect();
+  // } 
 }
-
+ }
 export default registerUserService
