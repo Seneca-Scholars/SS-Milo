@@ -35,4 +35,7 @@ describe('createUserWithProfileTransactionally', () => {
       return callback(tx);
     });
   });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 })
