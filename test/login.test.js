@@ -37,4 +37,12 @@ describe("loginUserService", () => {
       expect(generateAuthToken).toHaveBeenCalledWith(mockUser);
       expect(result).toEqual({ token: mockToken, user: mockUser });
     });
+
+    it("should throw an error for an invalid username", async () => {
+        db.users.findUnique.mockResolvedValue(null);
+    
+        await expect(loginUserService("invalidUser", "password123")).rejects.toThrow(
+          "invalid username or password"
+        );
+      });
 });  
