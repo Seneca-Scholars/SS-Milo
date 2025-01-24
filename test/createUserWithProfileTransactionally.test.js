@@ -84,7 +84,7 @@ describe('createUserWithProfileTransactionally', () => {
       profile: {
         id: 1,
         userId: 1,
-        description: 'soft Engineer',
+        description: 'Software Engineer',
         age: 30,
       },
     });
