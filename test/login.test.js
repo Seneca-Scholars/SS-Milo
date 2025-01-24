@@ -10,3 +10,31 @@ jest.mock("../libs/prismaInit.js", () => ({
 jest.mock("../utilities/utilities.js", () => ({
   generateAuthToken: jest.fn(),
 }));
+
+describe("loginUserService", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+  
+    it("should successfully login a user with valid creds", async () => {
+      const mockUser = {
+        id: 1,
+        username: "johndoe",
+        passwordHash: await bcrypt.hash("password123", 10),
+      };
+      const mockToken = "mocked-jwt-token";
+  
+      db.users.findUnique.mockResolvedValue(mockUser);
+      bcrypt.compare = jest.fn().mockResolvedValue(true);
+      generateAuthToken.mockReturnValue(mockToken);
+  
+      const result = await loginUserService("johndoe", "password123");
+  
+      expect(db.users.findUnique).toHaveBeenCalledWith({ //ensures my mock is being called w arguement
+        where: { username: "johndoe" },
+      });
+      expect(bcrypt.compare).toHaveBeenCalledWith("password123", mockUser.passwordHash);
+      expect(generateAuthToken).toHaveBeenCalledWith(mockUser);
+      expect(result).toEqual({ token: mockToken, user: mockUser });
+    });
+});  
