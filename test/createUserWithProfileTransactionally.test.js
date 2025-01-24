@@ -100,5 +100,9 @@ describe('createUserWithProfileTransactionally', () => {
       description: 'Scientist',
       age: 28,
     };
-  })
-})
+     const error = new Error('transaction failed');
+    mockDb.$transaction.mockRejectedValue(error);
+
+    await expect(createUserWithProfileTransactionally(userData, profileData)).rejects.toThrow('transaction failed');
+  });
+});
