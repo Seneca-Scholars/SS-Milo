@@ -59,5 +59,35 @@ describe('createUserWithProfileTransactionally', () => {
       return { user, profile };
     });
   };
+  it('creates a user and profile successfully', async () => {
+    const userData = {
+      firstName: 'John',
+      lastName: 'Doe',
+      username: 'johndoe',
+      password: 'secretPassword',
+    };
+    const profileData = {
+      description: 'software Engineer',
+      age: 30,
+    };
+
+    const result = await createUserWithProfileTransactionally(userData, profileData);
+
+    expect(result).toEqual({
+      user: {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe',
+        username: 'johndoe',
+        passwordHash: expect.any(String),
+      },
+      profile: {
+        id: 1,
+        userId: 1,
+        description: 'soft Engineer',
+        age: 30,
+      },
+    });
+  });
   
 })
