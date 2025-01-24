@@ -89,5 +89,16 @@ describe('createUserWithProfileTransactionally', () => {
       },
     });
   });
-  
+  it('throws an error if transaction fails', async () => {
+    const userData = {
+      firstName: 'Jane',
+      lastName: 'Smith',
+      username: 'janesmith',
+      password: 'secret',
+    };
+    const profileData = {
+      description: 'Scientist',
+      age: 28,
+    };
+  })
 })
