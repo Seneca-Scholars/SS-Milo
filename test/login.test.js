@@ -45,4 +45,15 @@ describe("loginUserService", () => {
           "invalid username or password"
         );
       });
+      
+      it("should throw an error for incorrect password", async () => {
+        const mockUser = {
+          id: 1,
+          username: "johndoe",
+          passwordHash: await bcrypt.hash("password123", 10),
+        };
+    
+        db.users.findUnique.mockResolvedValue(mockUser);
+        bcrypt.compare = jest.fn().mockResolvedValue(false);
+    });
 });  
