@@ -9,13 +9,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
-    
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.1.0",
+    "@types/jest": "^29.5.14",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "env": "^0.0.2",
@@ -24,7 +24,11 @@
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@vitejs/plugin-react": "^4.3.3",
+    "babel-jest": "^29.5.2",
+    "mocha": "^11.1.0",
     "prisma": "^6.1.0",
     "tsx": "^4.19.2",
     "vite": "^5.4.8",
