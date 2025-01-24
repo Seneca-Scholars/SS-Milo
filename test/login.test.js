@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { generateAuthToken } from "../utilities/utilities.js";
 import db from "../libs/prismaInit.js";
-import loginUserService from "../services/loginUserService.js";
+import loginUserService from "../services/loginService.js";
 
 jest.mock("../libs/prismaInit.js", () => ({
   users: { findUnique: jest.fn() },
@@ -45,15 +45,18 @@ describe("loginUserService", () => {
           "invalid username or password"
         );
       });
-      
+
       it("should throw an error for incorrect password", async () => {
         const mockUser = {
           id: 1,
           username: "johndoe",
           passwordHash: await bcrypt.hash("password123", 10),
         };
-    
+      
         db.users.findUnique.mockResolvedValue(mockUser);
-        bcrypt.compare = jest.fn().mockResolvedValue(false);
+        bcrypt.compare = jest.fn().mockResolvedValue(false); 
+      
+        await expect(loginUserService("johndoe", "wrongPassword")).rejects.toThrow("invalid username or password");
+        expect(bcrypt.compare).toHaveBeenCalledWith("wrongPassword", mockUser.passwordHash);
+      });
     });
-});  

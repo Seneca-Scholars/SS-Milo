@@ -12,11 +12,11 @@ export async function loginUserService(username, password) {
     if (!user) {
       throw new Error("invalid username or password");
     }
-    const isMatch = bcrypt.compare(password, user.passwordHash);
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
    
 
     if (!isMatch) {
-      throw Error;
+      throw new Error('invalid username or password');
     }
 
     const token = generateAuthToken(user);
