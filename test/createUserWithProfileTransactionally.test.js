@@ -38,4 +38,26 @@ describe('createUserWithProfileTransactionally', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+  const createUserWithProfileTransactionally = async (userData, profileData) => {
+    return mockDb.$transaction(async (tx) => {
+      const hashedPassword = await hashPassword(userData.password);
+
+      const user = await tx.users.create({
+        data: {
+          ...userData,
+          passwordHash: hashedPassword,
+        },
+      });
+
+      const profile = await tx.profile.create({
+        data: {
+          ...profileData,
+          userId: user.id,
+        },
+      });
+
+      return { user, profile };
+    });
+  };
+  
 })
