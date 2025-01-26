@@ -31,10 +31,8 @@ describe("updateUserService", () => {
         const invalidUserId = "invalid";
         const mockUpdatedData = { firstName: "John", lastName: "Doe" };
 
-        await expect(updateUserService(invalidUserId, mockUpdatedData)).rejects.toThrow("Invalid user ID");
+        await expect(updateUserService(invalidUserId, mockUpdatedData)).rejects.toThrow("invalid user ID");
         expect(db.users.update).not.toHaveBeenCalled();
     });
-
-    
 });
 
