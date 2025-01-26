@@ -40,6 +40,12 @@ describe("updateUserService", () => {
         await expect(updateUserService(mockUserId, {})).rejects.toThrow("0 data provided for update");
         expect(db.users.update).not.toHaveBeenCalled();
     });
+    it("should throw an error for undefined updated data", async () => {
+        const mockUserId = 1;
+
+        await expect(updateUserService(mockUserId)).rejects.toThrow("0 data provided for update");
+        expect(db.users.update).not.toHaveBeenCalled();
+    });
 
 });
 

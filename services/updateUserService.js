@@ -12,6 +12,8 @@ if (!Number.isInteger(+userId)) {
 if (!Object.entries(updatedData).length) { //object.entries converts the object data into an array of key value pairs
   throw new Error("0 data provided for update");
 }
+
+
     const parsedUserId = parseInt(userId); 
     const { firstName, lastName, username} = updatedData;
 
