@@ -1,4 +1,3 @@
-import { it } from "node:test";
 import db from "../libs/prismaInit.js";
 import {
   getUserByIdService,
@@ -51,7 +50,7 @@ describe("getUserByIdService", () => {
       where: { id: mockUserId },
     });
   });
-  
+
   describe("getUserByUsernameService", () => {
     beforeEach(() => {
       jest.clearAllMocks();
