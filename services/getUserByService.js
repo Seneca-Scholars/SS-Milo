@@ -25,7 +25,7 @@ export const getUserByUsernameService = async (username) => {
     });
 
     if (!user) {
-      throw new Error('not found'); 
+      throw new Error('user not found'); 
     }
 
     return user; 
