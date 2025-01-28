@@ -13,7 +13,6 @@ export const getUserByIdService = async (userId) => {
 
     return user;
   } catch (error) {
-    console.error("err fetching user by ID:", error);
     throw error; 
   }
 };
@@ -25,12 +24,11 @@ export const getUserByUsernameService = async (username) => {
     });
 
     if (!user) {
-      throw new Error('not found'); 
+      throw new Error('user not found'); 
     }
 
     return user; 
   } catch (error) {
-    console.error('err fetching user:', error);
     throw error;
   }
 };

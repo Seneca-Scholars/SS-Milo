@@ -7,27 +7,16 @@ export async function loginUserService(username, password) {
   try {
     const user = await db.users.findUnique({
       where: { username },
-
-      //   (err, row) => {
-      //     if (err) {
-      //       reject(new Error("db error: " + err.message));
-      //     } else if (!row) {
-      //       reject(new Error("user not found"));
-      //     } else {
-      //       resolve(row);
-      //     }
-      //   }
-      // );
     });
  
     if (!user) {
       throw new Error("invalid username or password");
     }
-    const isMatch = bcrypt.compare(password, user.passwordHash);
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
    
 
     if (!isMatch) {
-      throw Error;
+      throw new Error('invalid username or password');
     }
 
     const token = generateAuthToken(user);
