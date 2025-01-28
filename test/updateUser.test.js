@@ -18,6 +18,23 @@ describe("updateUserService", () => {
   afterEach(() => {
     sx.restore();
   });
+
+  it('should update a user with valid data', async () => {
+    const mockUserId = 1;
+    const mockUpdatedData = { firstName: "John", lastName: "Doe", username: "johndoe" };
+    const mockUpdatedUser = { id: 1, firstName: "John", lastName: "Doe", username: "johndoe" };
+
+    db.users.update.resolves(mockUpdatedUser); 
+
+    const result = await updateUserService(mockUserId, mockUpdatedData);
+
+    expect(db.users.update.calledOnceWithExactly({ 
+      where: { id: mockUserId }, 
+      data: mockUpdatedData 
+    })).to.be.true; 
+    expect(result).to.deep.equal(mockUpdatedUser); 
+  });
+  
   it("should throw an error for invalid user ID", async () => {
     const invalidUserId = "invalid";
     const mockUpdatedData = { firstName: "John", lastName: "Doe" };
