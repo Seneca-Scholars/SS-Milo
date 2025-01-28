@@ -30,5 +30,16 @@ describe("updateUserService", () => {
       expect(error.message).to.include("invalid user ID");
     }
   });
-  console.log(10+5/2*4-8);
+ 
+  it('should throw an error for no updated data', async () => {
+    const mockUserId = 1;
+
+    try {
+      await updateUserService(mockUserId, {});
+      expect.fail('expected an error');
+    } catch (error) {
+      expect(error.message).to.include('0 data provided for update'); 
+      expect(db.users.update.notCalled).to.be.true; 
+    }
+  });
 });
