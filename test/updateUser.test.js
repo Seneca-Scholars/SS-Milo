@@ -42,4 +42,15 @@ describe("updateUserService", () => {
       expect(db.users.update.notCalled).to.be.true; 
     }
   });
+  it('should throw an error for undefined updated data', async () => {
+    const mockUserId = 1;
+
+    try {
+      await updateUserService(mockUserId);
+      expect.fail('expected an error to be thrown');
+    } catch (error) {
+      expect(error.message).to.include('0 data provided for update'); 
+      expect(db.users.update.notCalled).to.be.true; 
+    }
+  });
 });
