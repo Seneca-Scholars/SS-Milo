@@ -16,13 +16,13 @@ import { generateAuthToken, hashPassword } from '../utilities/utilities.js';
     const token = generateAuthToken(newUser);
     console.log(newUser)
 
-    return{ newUser, token }; 
+    return{ newUser, token };
   } catch (error) {
-    console.error(error); 
-    throw error; 
+    console.error(error);
+    throw error;
   // } finally {
   //   await db.$disconnect();
-  // } 
+  // }
 }
  }
 export default registerUserService
