@@ -6,15 +6,14 @@ export const searchUserService = async (query) => {
       where: {
         OR: [
           { firstName: { contains: query } },
-          { lastName: { contains: query } } 
-        ]
-      }
+          { lastName: { contains: query } },
+        ],
+      },
     });
 
-
-    return users; 
+    return users;
   } catch (err) {
-    console.error('err fetching users:', err);
-    throw err; 
+    console.error("err fetching users:", err);
+    throw err;
   }
 };
